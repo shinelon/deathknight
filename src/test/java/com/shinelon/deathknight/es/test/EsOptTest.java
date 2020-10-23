@@ -23,7 +23,6 @@ import org.elasticsearch.client.core.TermVectorsResponse.TermVector;
 import org.elasticsearch.client.core.TermVectorsResponse.TermVector.FieldStatistics;
 import org.elasticsearch.client.core.TermVectorsResponse.TermVector.Term;
 import org.elasticsearch.client.core.TermVectorsResponse.TermVector.Token;
-import org.elasticsearch.index.mapper.MapperService;
 import org.elasticsearch.script.Script;
 import org.elasticsearch.script.ScriptType;
 import org.elasticsearch.search.fetch.subphase.FetchSourceContext;
@@ -92,7 +91,7 @@ public class EsOptTest extends DeathknightApplicationTests {
       GetResponse getResponse = restHighLevelClient.get(getRequest, RequestOptions.DEFAULT);
       logger.info("getResponse:{}", getResponse);
       Object updatedObj = getResponse.getSource().get("updated");
-      logger.info("getResponse:{}", (String) updatedObj);
+      logger.info("getResponse:{}", updatedObj);
     } catch (IOException e) {
       logger.error(e.getMessage(), e);
     }
@@ -128,11 +127,15 @@ public class EsOptTest extends DeathknightApplicationTests {
 
   @Test
   public void update2Test() {
-    Map<String, Object> jsonMap = new HashMap<>();
+	  Map<String, Object> jsonMap = new HashMap<>();
     jsonMap.put("count", 2);
     Script inline =
-        new Script(ScriptType.INLINE, "painless", "ctx._source.count += params.count", jsonMap);
-    UpdateRequest updateRequest = new UpdateRequest("posts", "1").script(inline).retryOnConflict(3);
+        new Script(
+            ScriptType.INLINE,
+            "painless",
+            "if (ctx._source.containsKey('count')){ ctx._source.count += params.count } else { ctx._source.count = 0}",
+            jsonMap);
+    UpdateRequest updateRequest = new UpdateRequest("posts", "2").script(inline).retryOnConflict(3);
     try {
       UpdateResponse updateResponse =
           restHighLevelClient.update(updateRequest, RequestOptions.DEFAULT);
