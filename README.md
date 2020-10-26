@@ -19,5 +19,6 @@
 - 封装静态方法：<T> T json2GenericType(String jsonStr, Supplier<TypeReference<T>> suppiler)
 - 格式化：@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 - 序列化属性名：@JsonProperty(value = "phoneNo")
-- 序列化属性控制：序列化为读，反序列化为写 @JsonProperty(access = Access.READ_ONLY)
+- 序列化属性控制：序列化为读，反序列化为写 @JsonProperty(access = Access.READ_ONLY) 
+- 序列序列化过滤：@JsonIgnore
 - 反序列化，需要无参构造器
