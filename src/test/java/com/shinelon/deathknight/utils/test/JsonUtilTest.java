@@ -2,8 +2,10 @@ package com.shinelon.deathknight.utils.test;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,6 +64,17 @@ public class JsonUtilTest {
     List<Map<String, String>> map =
         JsonUtil.json2GenericType(jsonStr, () -> new TypeReference<List<Map<String, String>>>() {});
     logger.info("map:{}", map);
+    Map<String, User> map1 = list.parallelStream().collect(Collectors.toMap(User::getName, v -> v));
+    Map<String, User> map2 = new HashMap<>(map1);
+    List<Map<String, User>> listMap = new ArrayList<>();
+    listMap.add(map1);
+    listMap.add(map2);
+    String listMapStr = JsonUtil.toJsonString(listMap);
+    logger.info("listMapJsonStr:{}", listMapStr);
+    List<Map<String, User>> json2GenericType =
+        JsonUtil.json2GenericType(
+            listMapStr, () -> new TypeReference<List<Map<String, User>>>() {});
+    logger.info("listMapObj:{}", json2GenericType);
   }
 
   @Test
