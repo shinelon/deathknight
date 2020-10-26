@@ -34,6 +34,11 @@ public class JsonUtilTest {
     author = new User();
     author.setName("author");
     author.setMobile("18600000000");
+    // 序列化为读，反序列化为写
+    // READ_ONLY
+    author.setEmail("123@163.com");
+    // WRITE_ONLY
+    author.setPassword("pwd");
 
     tags = new ArrayList<>();
     tags.add(new Tag("JAVA"));
@@ -86,5 +91,14 @@ public class JsonUtilTest {
     Post post = JsonUtil.json2GenericType(jsonStr, () -> new TypeReference<Post>() {});
     		//JsonUtil.json2Bean(jsonStr, Post.class); 
     logger.info("post:{}", post);
+  }
+
+  @Test
+  public void accessTest() {
+    logger.info(JsonUtil.toJsonString(author));
+    String jsonStr =
+        "{\"name\":\"author\",\"email\":\"123@163.com\",\"phoneNo\":\"18600000000\",\"password\":\"pwd\"}";
+    User json2Bean = JsonUtil.json2Bean(jsonStr, User.class);
+    logger.info("{}", json2Bean);
   }
 }
