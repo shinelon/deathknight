@@ -1,5 +1,6 @@
 package com.shinelon.deathknight.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -15,6 +16,8 @@ public class User {
 
   @JsonProperty(access = Access.WRITE_ONLY)
   private String password;
+
+  @JsonIgnore private Boolean isAdmin;
 
   public String getName() {
     return name;
@@ -48,6 +51,14 @@ public class User {
     this.password = password;
   }
 
+  public Boolean getIsAdmin() {
+    return isAdmin;
+  }
+
+  public void setIsAdmin(Boolean isAdmin) {
+    this.isAdmin = isAdmin;
+  }
+
   @Override
   public String toString() {
     return "User [name="
@@ -58,6 +69,8 @@ public class User {
         + email
         + ", password="
         + password
+        + ", isAdmin="
+        + isAdmin
         + "]";
   }
 }

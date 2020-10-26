@@ -39,6 +39,8 @@ public class JsonUtilTest {
     author.setEmail("123@163.com");
     // WRITE_ONLY
     author.setPassword("pwd");
+    // @JsonIgnore
+    author.setIsAdmin(true);
 
     tags = new ArrayList<>();
     tags.add(new Tag("JAVA"));
