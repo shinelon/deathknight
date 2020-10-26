@@ -2,7 +2,9 @@
 
 ###  Elasticsearch  Java High Level REST Client 
 
- -- crud opt
+ - crud API(IndexRequest,GetRequest,DeleteRequest,UpdateRequest) demo
+ - bulk API(BulkRequest,MultiGetRequest,UpdateByQueryRequest,DeleteByQueryRequest) demo
+ - search API(SearchRequest) demo
  
  ----
  
