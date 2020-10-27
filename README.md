@@ -10,6 +10,7 @@
  - GEO工具方法（静态方法）demo(距离计算&Geohash编码)EsGeoUtilTest.class
  - GEO距离计算分类：GeoDistance.PLANE（速度快精度低）  GeoDistance.ARC(API默认 速度慢精度高)
  - GEOHASH概念理解 (The geohash_cell query has been removed(7.5) )
+ - 封装RestHighLevelClientHandler工具类&自定义EsFunction统一处理IOException
  
  ----
  
