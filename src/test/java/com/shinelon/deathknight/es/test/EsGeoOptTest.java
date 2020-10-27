@@ -22,6 +22,7 @@ import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.geometry.utils.Geohash;
 import org.elasticsearch.index.query.GeoDistanceQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -137,7 +138,6 @@ public class EsGeoOptTest extends DeathknightApplicationTests {
     SearchRequest searchRequest = new SearchRequest("restaurant");
     // GeoDistanceQueryBuilder
 
-    //  可能有缓存，当前修改的配置不一定立即生效
     GeoDistanceQueryBuilder geoDistanceQuery = QueryBuilders.geoDistanceQuery("location");
     geoDistanceQuery.geoDistance(GeoDistance.PLANE);
     geoDistanceQuery.distance("2km", DistanceUnit.KILOMETERS);
@@ -152,6 +152,45 @@ public class EsGeoOptTest extends DeathknightApplicationTests {
     GeoDistanceSortBuilder gdsb = new GeoDistanceSortBuilder("location", srcPoint);
     gdsb.unit(DistanceUnit.METERS);
     gdsb.order(SortOrder.ASC);
+    gdsb.geoDistance(GeoDistance.PLANE);
+    ssb.sort(gdsb);
+    searchRequest.source(ssb);
+    try {
+      SearchResponse searchResponse =
+          restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+      logger.info("searchResponse:{}", searchResponse);
+      SearchHits hits = searchResponse.getHits();
+      SearchHit[] hits2 = hits.getHits();
+      for (SearchHit searchHit : hits2) {
+        logger.info("hit:{}", searchHit);
+      }
+    } catch (IOException e) {
+      logger.error(e.getMessage(), e);
+    }
+  }
+
+  @Test
+  public void geoHashQueryTest() {
+    GeoPoint srcPoint = new GeoPoint();
+    srcPoint.reset(40.715D, -73.988D);
+    // SearchRequest
+    SearchRequest searchRequest = new SearchRequest("restaurant");
+    // GeoDistanceQueryBuilder
+
+    GeoDistanceQueryBuilder geoDistanceQuery = QueryBuilders.geoDistanceQuery("location");
+    geoDistanceQuery.geoDistance(GeoDistance.PLANE);
+    geoDistanceQuery.distance("2km", DistanceUnit.KILOMETERS);
+    geoDistanceQuery.geohash(Geohash.stringEncode(srcPoint.getLon(), srcPoint.lat()));
+
+    // SearchSourceBuilder
+    SearchSourceBuilder ssb = new SearchSourceBuilder();
+    ssb.query(geoDistanceQuery);
+    // ssb.postFilter(geoDistanceQuery);
+    // GeoDistanceSortBuilder
+    GeoDistanceSortBuilder gdsb = new GeoDistanceSortBuilder("location", srcPoint);
+    gdsb.unit(DistanceUnit.METERS);
+    gdsb.order(SortOrder.ASC);
+    gdsb.geoDistance(GeoDistance.PLANE);
     ssb.sort(gdsb);
     searchRequest.source(ssb);
     try {
