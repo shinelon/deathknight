@@ -6,10 +6,10 @@
  - 批量bulk API (BulkRequest,MultiGetRequest,UpdateByQueryRequest,DeleteByQueryRequest) demo
  - 查询search API (SearchRequest,UpdateByQueryRequest) demo
  - 动态映射（dynamic mapping）地理坐标geo_point
- - GEO API distance 距离demo
+ - GEO API distance&sort demo
  - GEO工具方法（静态方法）demo(距离计算&Geohash编码)EsGeoUtilTest.class
  - GEO距离计算分类：GeoDistance.PLANE（速度快精度低）  GeoDistance.ARC(API默认 速度慢精度高)
- - geohash API
+ - GEOHASH API 
  
  ----
  
