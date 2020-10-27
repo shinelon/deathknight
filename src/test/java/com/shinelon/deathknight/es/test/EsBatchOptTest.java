@@ -149,7 +149,7 @@ public class EsBatchOptTest extends DeathknightApplicationTests {
 
   @Test
   public void deleteByQueryRequestTest() {
-    DeleteByQueryRequest deleteByQueryRequest = new DeleteByQueryRequest("posts");
+    DeleteByQueryRequest deleteByQueryRequest = new DeleteByQueryRequest("restaurant");
     deleteByQueryRequest.setQuery(QueryBuilders.matchAllQuery());
     try {
       BulkByScrollResponse deleteByQueryResponse =
