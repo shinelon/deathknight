@@ -4,7 +4,7 @@
 
  - 基本crud API (IndexRequest,GetRequest,DeleteRequest,UpdateRequest) demo
  - 批量bulk API (BulkRequest,MultiGetRequest,UpdateByQueryRequest,DeleteByQueryRequest) demo
- - 查询search API (SearchRequest,UpdateByQueryRequest) demo
+ - 查询search API (SearchRequest,UpdateByQueryRequest,SearchScrollRequest) demo
  - 动态映射（dynamic mapping）地理坐标geo_point
  - 脚本示例 Script painless更新文档
  - GEO API distance&sort demo
