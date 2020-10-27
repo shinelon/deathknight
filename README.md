@@ -9,7 +9,7 @@
  - GEO API distance&sort demo
  - GEO工具方法（静态方法）demo(距离计算&Geohash编码)EsGeoUtilTest.class
  - GEO距离计算分类：GeoDistance.PLANE（速度快精度低）  GeoDistance.ARC(API默认 速度慢精度高)
- - GEOHASH概念理解 ES7.9.2已经内部集成geohash搜索
+ - GEOHASH概念理解 (The geohash_cell query has been removed(7.5) )
  
  ----
  
