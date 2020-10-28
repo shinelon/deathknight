@@ -3,16 +3,15 @@ package com.shinelon.deathknight.utils;
 import java.time.ZoneId;
 import java.util.TimeZone;
 import java.util.function.Supplier;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 /**
  * *
@@ -30,12 +29,14 @@ public class JsonUtil {
     objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     objectMapper.setTimeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));
   }
+
   /**
    * * bean -> jsonStrs
    *
    * @param obj
    * @return
    */
+
   public static String toJsonString(Object obj) {
     try {
       return objectMapper.writeValueAsString(obj);
@@ -44,6 +45,7 @@ public class JsonUtil {
     }
     return null;
   }
+
   /**
    * * jsonStr -> bean
    *
@@ -61,6 +63,7 @@ public class JsonUtil {
     }
     return null;
   }
+
   /**
    * * jsonStr -> collection Or map
    *
