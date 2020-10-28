@@ -1,16 +1,16 @@
 package com.shinelon.deathknight.utils;
 
-import java.time.ZoneId;
-import java.util.TimeZone;
-import java.util.function.Supplier;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.ZoneId;
+import java.util.TimeZone;
+import java.util.function.Supplier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -20,8 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class JsonUtil {
 
-  private static final Logger logger = LoggerFactory.getLogger(JsonUtil.class);
   public static final ObjectMapper objectMapper = new ObjectMapper();
+  private static final Logger logger = LoggerFactory.getLogger(JsonUtil.class);
 
   static {
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -64,12 +64,11 @@ public class JsonUtil {
     return null;
   }
 
-  /**
-   * * jsonStr -> collection Or map
+  /*
+   *  jsonStr -> collection Or map
    *
-   * <p>suppiler: () -> new TypeReference<Map<String,Object>>(){} () -> new
-   * TypeReference<List<Object>>(){}
-   *
+   * <p> suppiler: () -> new TypeReference<Map<String,Object>>(){} () ->
+   * new TypeReference<List<Object>>(){}</p>
    * @param <T>
    * @param jsonStr
    * @param suppiler

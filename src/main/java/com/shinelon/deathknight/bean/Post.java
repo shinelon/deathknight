@@ -1,12 +1,11 @@
 package com.shinelon.deathknight.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-/**
- * *
+/*
+ *
  *
  * @author syq
  */
@@ -53,11 +52,11 @@ public class Post {
   }
 
   public Date getCreateDate() {
-    return createDate;
+    return createDate == null ? null : new Date(createDate.getTime());
   }
 
   public void setCreateDate(Date createDate) {
-    this.createDate = createDate;
+    this.createDate = createDate == null ? null : new Date(createDate.getTime());
   }
 
   @Override

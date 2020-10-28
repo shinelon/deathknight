@@ -3,10 +3,9 @@ package com.shinelon.deathknight.bean;
 public class Tag {
 
   private String name;
-  /***
-   * for jackson deserialize
-   */
-  public Tag() {}
+
+  public Tag() {
+  }
 
   public Tag(String name) {
     super();

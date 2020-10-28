@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 public class User {
-	
+
   private String name;
 
   @JsonProperty(value = "phoneNo")
@@ -17,7 +17,8 @@ public class User {
   @JsonProperty(access = Access.WRITE_ONLY)
   private String password;
 
-  @JsonIgnore private Boolean isAdmin;
+  @JsonIgnore
+  private Boolean isAdmin;
 
   public String getName() {
     return name;
