@@ -1,5 +1,11 @@
 # deathknight
 
+### Redisson(3.14.1)
+ - 延迟队列（DelayedQueueService）demo
+ - 分布式任务调度(RedissionCfg,SchedulerServer)demo
+
+ ----
+
 ###  Elasticsearch(7.9.2)&Java High Level REST Client
 
  - 基本crud API (IndexRequest,GetRequest,DeleteRequest,UpdateRequest) demo
