@@ -10,12 +10,17 @@ import org.redisson.api.executor.TaskSuccessListener;
 import org.redisson.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Shinelon
+ */
 @Configuration
+@ConditionalOnProperty(prefix = "enable", name = "redission", havingValue = "true", matchIfMissing = false)
 public class RedissionCfg {
 
     private static final Logger logger = LoggerFactory.getLogger(RedissionCfg.class);
@@ -23,7 +28,7 @@ public class RedissionCfg {
     @Bean
     public RedissonClient redission() {
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://XXX.XXX.XXX.XXX:6379").setPassword("XXX@XXX").setDatabase(1);
+        config.useSingleServer().setAddress("redis://xxxxxxxxxx:6379").setPassword("xxxx").setDatabase(1);
         RedissonClient redissonClient = Redisson.create(config);
         return redissonClient;
     }

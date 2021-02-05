@@ -3,9 +3,11 @@ package com.shinelon.deathknight.web;
 import com.shinelon.deathknight.redission.DelayedQueueService;
 import com.shinelon.deathknight.redission.SchedulerServer;
 import com.shinelon.deathknight.utils.JsonUtil;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +15,8 @@ import java.util.Set;
 
 
 @RestController
+@RequestMapping("redission")
+@ConditionalOnBean(value = RedissonClient.class)
 public class SchedulerServerController {
 
     private static final Logger logger = LoggerFactory.getLogger(SchedulerServerController.class);

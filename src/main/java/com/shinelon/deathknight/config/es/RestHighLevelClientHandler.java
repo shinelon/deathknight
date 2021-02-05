@@ -1,6 +1,5 @@
 package com.shinelon.deathknight.config.es;
 
-import java.io.IOException;
 import org.elasticsearch.action.ActionRequest;
 import org.elasticsearch.action.ActionResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -8,7 +7,10 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 /**
  * * 封装RestHighLevelClient 统一处理IOException
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Component;
  * @author syq
  */
 @Component
+@ConditionalOnProperty(prefix = "enable", name = "es", havingValue = "true", matchIfMissing = false)
 public class RestHighLevelClientHandler {
 
   private static final Logger logger = LoggerFactory.getLogger(RestHighLevelClientHandler.class);

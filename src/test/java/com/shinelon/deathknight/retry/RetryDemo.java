@@ -30,7 +30,7 @@ public class RetryDemo extends DeathknightApplicationTests {
     private MethodTryService2 methodTryService2;
 
 
-    private RetryConfig config = RetryConfig.custom()
+    private final RetryConfig config = RetryConfig.custom()
             .maxAttempts(3)
             .waitDuration(Duration.ofMillis(1000))
             .retryExceptions(Exception.class)

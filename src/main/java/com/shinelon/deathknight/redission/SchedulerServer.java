@@ -7,12 +7,14 @@ import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Component
+@ConditionalOnBean(value = RedissonClient.class)
 public class SchedulerServer {
 
     private static final Logger logger = LoggerFactory.getLogger(SchedulerServer.class);

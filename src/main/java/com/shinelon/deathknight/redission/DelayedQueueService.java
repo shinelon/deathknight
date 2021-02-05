@@ -6,11 +6,13 @@ import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
 @Service
+@ConditionalOnBean(value = RedissonClient.class)
 public class DelayedQueueService {
 
     private static final Logger logger = LoggerFactory.getLogger(DelayedQueueService.class);
