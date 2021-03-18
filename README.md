@@ -3,6 +3,9 @@
 ### IJPay
 
 - 支付宝支付（pc网页）
+- 微信支付
+- QrCode
+- 支付结构
 
 https://github.com/Javen205/IJPay
 
