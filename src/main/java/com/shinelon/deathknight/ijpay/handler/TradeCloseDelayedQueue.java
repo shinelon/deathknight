@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class TradeCloseDelayedQueue {
 
-    public static final long DEFAULT_CLOSE_SECONDS = 15 * 1L;
+    public static final long DEFAULT_CLOSE_SECONDS = 15 * 60L;
     @Autowired
     private DelayedQueueHandler delayedQueueHandler;
 
