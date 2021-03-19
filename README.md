@@ -1,11 +1,14 @@
 # deathknight
 
-### IJPay
+### 支付流程(支付/微信)
 
+- IJPay
 - 支付宝支付（pc网页）
 - 微信支付
 - QrCode
 - 支付结构
+- 订单关闭延迟队列
+- 支付渠道(支付/微信)切换
 
 https://github.com/Javen205/IJPay
 
