@@ -19,10 +19,15 @@ public enum PayCodeEnum {
      * 非法
      */
     ILLEGAL("401", "illegal"),
+
     /***
      * token非法
      */
-    ILLEGAL_PAY_TOKEN("402", "illegal_pay_token");
+    ILLEGAL_PAY_TOKEN("402", "illegal_pay_token"),
+    /***
+     * 非法支付渠道码
+     */
+    ILLEGAL_PAY_CHANNEL_CODE("403", "illegal_pay_channel_code");
 
     private final String code;
     private final String msg;
