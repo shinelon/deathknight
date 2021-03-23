@@ -1,4 +1,4 @@
-package com.shinelon.deathknight.ijpay.handler;
+package com.shinelon.deathknight.ijpay.handler.queue;
 
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBlockingDeque;

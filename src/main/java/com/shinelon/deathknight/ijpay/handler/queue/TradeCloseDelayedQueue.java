@@ -1,4 +1,4 @@
-package com.shinelon.deathknight.ijpay.handler;
+package com.shinelon.deathknight.ijpay.handler.queue;
 
 
 import com.shinelon.deathknight.ijpay.bean.OrderBean;

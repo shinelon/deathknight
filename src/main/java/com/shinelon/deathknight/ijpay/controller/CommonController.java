@@ -2,7 +2,8 @@ package com.shinelon.deathknight.ijpay.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.shinelon.deathknight.ijpay.bean.OrderBean;
-import com.shinelon.deathknight.ijpay.handler.TradeCloseDelayedQueue;
+import com.shinelon.deathknight.ijpay.handler.PaySeqNoHandler;
+import com.shinelon.deathknight.ijpay.handler.queue.TradeCloseDelayedQueue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,8 @@ import java.time.LocalDateTime;
 public class CommonController {
     @Autowired
     private TradeCloseDelayedQueue tradeCloseDelayedQueue;
+    @Autowired
+    private PaySeqNoHandler paySeqNoHandler;
 
     @RequestMapping("/testClose")
     public String addTestClose(String payChannel) {
@@ -34,5 +37,10 @@ public class CommonController {
         OrderBean orderBean = tradeCloseDelayedQueue.takeQueue(payChannel);
         log.info("take:{}", JSON.toJSONString(orderBean));
         return JSON.toJSONString(orderBean);
+    }
+
+    @RequestMapping("/payNo")
+    public String nextNo() {
+        return paySeqNoHandler.nextNo();
     }
 }

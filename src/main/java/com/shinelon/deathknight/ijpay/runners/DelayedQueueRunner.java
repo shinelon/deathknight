@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.shinelon.deathknight.ijpay.bean.OrderBean;
 import com.shinelon.deathknight.ijpay.enums.PayChannelEnum;
 import com.shinelon.deathknight.ijpay.handler.PayChannelHandler;
-import com.shinelon.deathknight.ijpay.handler.TradeCloseDelayedQueue;
+import com.shinelon.deathknight.ijpay.handler.queue.TradeCloseDelayedQueue;
 import com.shinelon.deathknight.ijpay.listener.ITradeCloseListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
