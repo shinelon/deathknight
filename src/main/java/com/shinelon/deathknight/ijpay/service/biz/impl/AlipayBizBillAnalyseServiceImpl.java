@@ -12,10 +12,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -41,7 +43,10 @@ public class AlipayBizBillAnalyseServiceImpl implements BizBillAnalyseService {
         BizBillAnalyseResult ret = new BizBillAnalyseResult();
         ret.setIsSuccess(true);
         List<String> fileLines = getFileLines(in, charset);
-        //to check list
+        if (CollectionUtils.isEmpty(fileLines)) {
+            ret.setBillList(Collections.emptyList());
+            return ret;
+        }
         List<CompletableFuture<BizBillDetailBean>> featureList = new ArrayList<>(fileLines.size());
         for (String line : fileLines) {
             addFeature(featureList, line);

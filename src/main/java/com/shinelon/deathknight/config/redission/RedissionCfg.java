@@ -38,7 +38,11 @@ public class RedissionCfg {
         config.useSingleServer()
                 .setAddress("redis://" + host + ":" + port)
                 .setPassword(password)
-                .setDatabase(1);
+                .setDatabase(1)
+                .setConnectionPoolSize(16)
+                .setConnectionMinimumIdleSize(4)
+                .setSubscriptionConnectionPoolSize(16)
+                .setSubscriptionConnectionMinimumIdleSize(1);
         RedissonClient redissonClient = Redisson.create(config);
         return redissonClient;
     }
