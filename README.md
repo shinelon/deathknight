@@ -12,6 +12,9 @@
 - 差集对账
 - 支付流水号生成
 
+#### 支付思维导图
+![支付思维导图](https://user-images.githubusercontent.com/20939985/112117265-22faa780-8bf6-11eb-8eb2-0c5361904b7f.png)
+
 https://github.com/Javen205/IJPay
 
   ----
