@@ -2,7 +2,7 @@ package com.shinelon.deathknight.ijpay.handler;
 
 import com.shinelon.deathknight.ijpay.enums.PayChannelEnum;
 import com.shinelon.deathknight.ijpay.listener.ITradeCloseListener;
-import com.shinelon.deathknight.ijpay.service.IPayService;
+import com.shinelon.deathknight.ijpay.service.remote.IPayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

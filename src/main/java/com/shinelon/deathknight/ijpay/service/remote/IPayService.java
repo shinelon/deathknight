@@ -1,4 +1,4 @@
-package com.shinelon.deathknight.ijpay.service;
+package com.shinelon.deathknight.ijpay.service.remote;
 
 /***
  * @author Shinelon

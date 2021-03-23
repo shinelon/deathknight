@@ -1,4 +1,4 @@
-package com.shinelon.deathknight.ijpay.service;
+package com.shinelon.deathknight.ijpay.service.biz;
 
 import cn.hutool.core.util.IdUtil;
 import com.shinelon.deathknight.ijpay.enums.PayCodeEnum;

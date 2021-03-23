@@ -27,4 +27,12 @@ public class ThreadPoolConfig {
                 new LinkedBlockingQueue<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
         return pool;
     }
+
+    @Bean(name = "billBizPool", destroyMethod = "shutdown")
+    public ExecutorService billBizPool() {
+        ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("bill-biz-%d").build();
+        ExecutorService pool = new ThreadPoolExecutor(16, 32, 10L, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+        return pool;
+    }
 }
