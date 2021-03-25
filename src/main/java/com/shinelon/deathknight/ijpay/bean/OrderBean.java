@@ -39,4 +39,16 @@ public class OrderBean implements Serializable {
      * 退款号
      */
     private String refundNo;
+    /***
+     * 商品名
+     */
+    private String goodsName;
+    /**
+     * 商品描述
+     */
+    private String goodsDescription;
+    /**
+     * 自定义参数
+     */
+    private String passbackParams;
 }

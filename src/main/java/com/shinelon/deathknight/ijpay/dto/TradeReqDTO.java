@@ -7,5 +7,9 @@ import lombok.Data;
  * @date 2021-03-24 16:33
  */
 @Data
-public class PayReqDTO {
+public class TradeReqDTO {
+    /**
+     * 请求体
+     */
+    protected String requestBody;
 }
