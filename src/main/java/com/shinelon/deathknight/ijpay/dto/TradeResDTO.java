@@ -13,6 +13,10 @@ public class TradeResDTO {
      */
     protected Boolean isSuccess;
     /**
+     * 返回信息
+     */
+    protected String resMsg;
+    /**
      * 返回体
      */
     protected String responseBody;
