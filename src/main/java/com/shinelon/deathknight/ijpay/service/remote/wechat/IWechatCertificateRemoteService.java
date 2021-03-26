@@ -1,6 +1,6 @@
 package com.shinelon.deathknight.ijpay.service.remote.wechat;
 
-import com.shinelon.deathknight.ijpay.dto.wechat.WechatCertRes;
+import com.shinelon.deathknight.ijpay.dto.remote.wechat.WechatCertRes;
 
 /**
  * @author Shinelon

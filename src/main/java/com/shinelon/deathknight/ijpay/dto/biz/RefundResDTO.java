@@ -1,18 +1,13 @@
-package com.shinelon.deathknight.ijpay.dto.wechat;
+package com.shinelon.deathknight.ijpay.dto.biz;
 
-import com.shinelon.deathknight.ijpay.dto.TradeReqDTO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * @author Shinelon
- * @date 2021-03-25 17:16
+ * @date 2021-03-26 15:51
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class WechatCertReq extends TradeReqDTO {
+public class RefundResDTO {
 
     @Override
     public String toString() {

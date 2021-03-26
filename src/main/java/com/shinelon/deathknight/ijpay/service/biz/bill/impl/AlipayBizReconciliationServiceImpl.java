@@ -1,10 +1,10 @@
-package com.shinelon.deathknight.ijpay.service.biz.impl;
+package com.shinelon.deathknight.ijpay.service.biz.bill.impl;
 
 import com.shinelon.deathknight.ijpay.bean.BizBillDetailBean;
 import com.shinelon.deathknight.ijpay.bean.OrderBean;
 import com.shinelon.deathknight.ijpay.constants.AlipayConstants;
 import com.shinelon.deathknight.ijpay.enums.OrderStatusEnums;
-import com.shinelon.deathknight.ijpay.service.biz.BizReconciliationService;
+import com.shinelon.deathknight.ijpay.service.biz.bill.BizReconciliationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

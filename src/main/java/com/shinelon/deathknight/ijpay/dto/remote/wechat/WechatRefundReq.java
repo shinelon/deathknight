@@ -1,6 +1,6 @@
-package com.shinelon.deathknight.ijpay.dto.wechat;
+package com.shinelon.deathknight.ijpay.dto.remote.wechat;
 
-import com.shinelon.deathknight.ijpay.dto.TradeReqDTO;
+import com.shinelon.deathknight.ijpay.dto.remote.TradeReqDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.builder.ToStringBuilder;

@@ -1,7 +1,7 @@
 package com.shinelon.deathknight.ijpay;
 
 import com.shinelon.deathknight.DeathknightApplicationTests;
-import com.shinelon.deathknight.ijpay.service.biz.impl.PayBizServiceImpl;
+import com.shinelon.deathknight.ijpay.service.biz.pay.impl.PayBizServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,8 +14,6 @@ public class IPayBizServiceTest extends DeathknightApplicationTests {
 
     @Test
     public void payTest() {
-        payBizService.pay("alipay");
-        payBizService.pay("wechat");
 //        payBizService.pay("123");
     }
 }

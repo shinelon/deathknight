@@ -1,6 +1,6 @@
-package com.shinelon.deathknight.ijpay.dto.wechat;
+package com.shinelon.deathknight.ijpay.dto.remote.alipay;
 
-import com.shinelon.deathknight.ijpay.dto.TradeReqDTO;
+import com.shinelon.deathknight.ijpay.dto.remote.TradeResDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -8,14 +8,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * @author Shinelon
- * @date 2021-03-25 15:01
+ * @date 2021-03-24 16:52
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class WechatBillReq extends TradeReqDTO {
-    private String billType;
-    private String billDate;
-    private String tarType;
+public class AlipayPayRes extends TradeResDTO {
 
     @Override
     public String toString() {

@@ -1,4 +1,4 @@
-package com.shinelon.deathknight.ijpay.service.biz.impl;
+package com.shinelon.deathknight.ijpay.service.biz.bill.impl;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.ZipUtil;
@@ -6,7 +6,7 @@ import com.shinelon.deathknight.ijpay.bean.BizBillAnalyseResult;
 import com.shinelon.deathknight.ijpay.bean.BizBillDetailBean;
 import com.shinelon.deathknight.ijpay.constants.AlipayConstants;
 import com.shinelon.deathknight.ijpay.handler.bill.AlipayBizBillAnalyseHandler;
-import com.shinelon.deathknight.ijpay.service.biz.BizBillAnalyseService;
+import com.shinelon.deathknight.ijpay.service.biz.bill.BizBillAnalyseService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

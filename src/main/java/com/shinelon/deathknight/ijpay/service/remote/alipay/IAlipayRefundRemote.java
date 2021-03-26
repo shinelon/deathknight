@@ -1,7 +1,7 @@
 package com.shinelon.deathknight.ijpay.service.remote.alipay;
 
-import com.shinelon.deathknight.ijpay.dto.alipay.AlipayRefundReq;
-import com.shinelon.deathknight.ijpay.dto.alipay.AlipayRefundRes;
+import com.shinelon.deathknight.ijpay.dto.remote.alipay.AlipayRefundReq;
+import com.shinelon.deathknight.ijpay.dto.remote.alipay.AlipayRefundRes;
 
 /**
  * @author Shinelon

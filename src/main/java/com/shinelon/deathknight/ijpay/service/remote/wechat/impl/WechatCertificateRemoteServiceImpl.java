@@ -12,7 +12,7 @@ import com.ijpay.core.kit.WxPayKit;
 import com.ijpay.wxpay.WxPayApi;
 import com.ijpay.wxpay.enums.WxApiType;
 import com.ijpay.wxpay.enums.WxDomain;
-import com.shinelon.deathknight.ijpay.dto.wechat.WechatCertRes;
+import com.shinelon.deathknight.ijpay.dto.remote.wechat.WechatCertRes;
 import com.shinelon.deathknight.ijpay.service.remote.wechat.BaseWechatTradeRemote;
 import com.shinelon.deathknight.ijpay.service.remote.wechat.IWechatCertificateRemoteService;
 import lombok.extern.slf4j.Slf4j;

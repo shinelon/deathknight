@@ -9,8 +9,8 @@ import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.ijpay.alipay.AliPayApi;
 import com.shinelon.deathknight.ijpay.bean.OrderBean;
 import com.shinelon.deathknight.ijpay.config.AliPayBean;
-import com.shinelon.deathknight.ijpay.dto.alipay.AlipayPayReq;
-import com.shinelon.deathknight.ijpay.dto.alipay.AlipayPayRes;
+import com.shinelon.deathknight.ijpay.dto.remote.alipay.AlipayPayReq;
+import com.shinelon.deathknight.ijpay.dto.remote.alipay.AlipayPayRes;
 import com.shinelon.deathknight.ijpay.service.remote.alipay.IAlipayPayRemote;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -102,7 +102,8 @@ public class AlipayPayRemoteImpl implements IAlipayPayRemote {
         return model;
     }
 
-    private AlipayTradePagePayModel convertAlipayTradePagePayModel(AlipayPayReq alipayPayReq) {
+    @Override
+    public AlipayTradePagePayModel convertAlipayTradePagePayModel(AlipayPayReq alipayPayReq) {
         OrderBean orderBean = alipayPayReq.getOrderBean();
         AlipayTradePagePayModel model = new AlipayTradePagePayModel();
         model.setOutTradeNo(orderBean.getOrderNo());

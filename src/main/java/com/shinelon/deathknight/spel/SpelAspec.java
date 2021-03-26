@@ -25,8 +25,8 @@ import java.lang.reflect.Method;
 public class SpelAspec {
 
     private static final Logger logger = LoggerFactory.getLogger(SpelAspec.class);
-    private ExpressionParser expressionParser = new SpelExpressionParser();
-    private ParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
+    private final ExpressionParser expressionParser = new SpelExpressionParser();
+    private final ParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
 
     @Pointcut("@annotation(com.shinelon.deathknight.spel.Spel)")
     public void pointCut() {

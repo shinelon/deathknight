@@ -1,4 +1,4 @@
-package com.shinelon.deathknight.ijpay.dto;
+package com.shinelon.deathknight.ijpay.dto.remote;
 
 import lombok.Data;
 

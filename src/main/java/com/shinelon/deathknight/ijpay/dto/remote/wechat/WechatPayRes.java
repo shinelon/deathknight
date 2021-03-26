@@ -1,29 +1,26 @@
-package com.shinelon.deathknight.ijpay.dto.alipay;
+package com.shinelon.deathknight.ijpay.dto.remote.wechat;
 
-import com.shinelon.deathknight.ijpay.dto.TradeReqDTO;
+import com.shinelon.deathknight.ijpay.dto.remote.TradeResDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.math.BigDecimal;
-
 /**
  * @author Shinelon
- * @date 2021-03-25 10:43
+ * @date 2021-03-24 17:28
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AlipayRefundReq extends TradeReqDTO {
-    private String refundNo;
+public class WechatPayRes extends TradeResDTO {
     /**
-     * 退款金额
+     * 二维码url
      */
-    private BigDecimal refundAmount;
+    private String codeUrl;
     /**
-     * 订单金额
+     * 完成时间
      */
-    private BigDecimal totalAmount;
+    private String finishTime;
 
     @Override
     public String toString() {

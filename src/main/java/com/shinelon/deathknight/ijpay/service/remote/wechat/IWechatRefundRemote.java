@@ -1,8 +1,8 @@
 package com.shinelon.deathknight.ijpay.service.remote.wechat;
 
 import com.ijpay.core.IJPayHttpResponse;
-import com.shinelon.deathknight.ijpay.dto.wechat.WechatRefundReq;
-import com.shinelon.deathknight.ijpay.dto.wechat.WechatRefundRes;
+import com.shinelon.deathknight.ijpay.dto.remote.wechat.WechatRefundReq;
+import com.shinelon.deathknight.ijpay.dto.remote.wechat.WechatRefundRes;
 
 /**
  * @author Shinelon
