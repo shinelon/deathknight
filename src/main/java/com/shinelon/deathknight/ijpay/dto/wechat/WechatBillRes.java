@@ -13,7 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WechatBillRes extends TradeResDTO {
-
+    private String billDownloadUrl;
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);

@@ -20,4 +20,16 @@ public class TradeResDTO {
      * 返回体
      */
     protected String responseBody;
+    /**
+     * 订单号
+     */
+    protected String orderNo;
+    /**
+     * 交易订单
+     */
+    protected String tradeNo;
+    /**
+     * 交易状态
+     */
+    protected String tradeStatus;
 }

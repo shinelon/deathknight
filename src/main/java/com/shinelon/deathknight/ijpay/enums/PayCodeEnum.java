@@ -27,7 +27,11 @@ public enum PayCodeEnum {
     /***
      * 非法支付渠道码
      */
-    ILLEGAL_PAY_CHANNEL_CODE("403", "illegal_pay_channel_code");
+    ILLEGAL_PAY_CHANNEL_CODE("403", "illegal_pay_channel_code"),
+    /***
+     * 非法签名
+     */
+    ILLEGAL_SIGNATURE("405", "illegal_signature");
 
     private final String code;
     private final String msg;

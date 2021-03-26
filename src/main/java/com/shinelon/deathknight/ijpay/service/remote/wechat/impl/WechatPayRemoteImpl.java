@@ -1,14 +1,14 @@
 package com.shinelon.deathknight.ijpay.service.remote.wechat.impl;
 
 import cn.hutool.json.JSONUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.ijpay.core.IJPayHttpResponse;
 import com.ijpay.core.enums.RequestMethod;
 import com.ijpay.core.utils.DateTimeZoneUtil;
 import com.ijpay.wxpay.WxPayApi;
 import com.ijpay.wxpay.enums.WxApiType;
 import com.ijpay.wxpay.enums.WxDomain;
+import com.ijpay.wxpay.model.CloseOrderModel;
+import com.ijpay.wxpay.model.OrderQueryModel;
 import com.ijpay.wxpay.model.v3.Amount;
 import com.ijpay.wxpay.model.v3.UnifiedOrderModel;
 import com.shinelon.deathknight.ijpay.bean.OrderBean;
@@ -30,6 +30,7 @@ import java.math.BigDecimal;
 @Slf4j
 public class WechatPayRemoteImpl extends BaseWechatTradeRemote implements IWechatPayRemote {
 
+    @Override
     public WechatPayRes payNative(WechatPayReq wechatPayReq) {
         UnifiedOrderModel orderModel = convertUnifiedOrderModel(wechatPayReq);
         try {
@@ -43,16 +44,103 @@ public class WechatPayRemoteImpl extends BaseWechatTradeRemote implements IWecha
                     wxPayV3Bean.getKeyPath(),
                     JSONUtil.toJsonStr(orderModel)
             );
-
+            assertVerifySignatureTrue(response);
+            return convertPayNativeWechatPayRes(response);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
-        return null;
+        return failedWechatPayRes();
     }
 
-    public String getString(String params, String field) {
-        JSONObject jsonObject = JSON.parseObject(params);
-        return jsonObject.getString(field);
+    @Override
+    public WechatPayRes query(WechatPayReq wechatPayReq) {
+        OrderQueryModel queryModel = convertOrderQueryModel(wechatPayReq);
+        try {
+            IJPayHttpResponse response = WxPayApi.v3(
+                    RequestMethod.POST,
+                    WxDomain.CHINA.toString(),
+                    WxApiType.ORDER_QUERY.toString(),
+                    wxPayV3Bean.getMchId(),
+                    getSerialNumber(),
+                    null,
+                    wxPayV3Bean.getKeyPath(),
+                    JSONUtil.toJsonStr(queryModel)
+            );
+            assertVerifySignatureTrue(response);
+            return convertOrderQueryWechatPayRes(response);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return failedWechatPayRes();
+    }
+
+    @Override
+    public WechatPayRes close(WechatPayReq wechatPayReq) {
+        CloseOrderModel closeOrderModel = convertCloseOrderModel(wechatPayReq);
+        try {
+            IJPayHttpResponse response = WxPayApi.v3(
+                    RequestMethod.POST,
+                    WxDomain.CHINA.toString(),
+                    WxApiType.CLOSE_ORDER.toString(),
+                    wxPayV3Bean.getMchId(),
+                    getSerialNumber(),
+                    null,
+                    wxPayV3Bean.getKeyPath(),
+                    JSONUtil.toJsonStr(closeOrderModel)
+            );
+            assertVerifySignatureTrue(response);
+            return convertBaseWechatPayRes(response);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return failedWechatPayRes();
+    }
+
+
+    private CloseOrderModel convertCloseOrderModel(WechatPayReq wechatPayReq) {
+        OrderBean orderBean = wechatPayReq.getOrderBean();
+        return CloseOrderModel.builder().out_trade_no(orderBean.getOrderNo()).appid(wxPayV3Bean.getAppId())
+                .mch_id(wxPayV3Bean.getMchId()).build();
+    }
+
+
+    private WechatPayRes convertOrderQueryWechatPayRes(IJPayHttpResponse response) {
+        WechatPayRes wechatPayRes = convertBaseWechatPayRes(response);
+        if (wechatPayRes.getIsSuccess()) {
+            String body = response.getBody();
+            wechatPayRes.setOrderNo(getStringFromJson(body, IWechatPayRemote.OUT_TRADE_NO));
+            wechatPayRes.setTradeNo(getStringFromJson(body, IWechatPayRemote.TRANSACTION_ID));
+            wechatPayRes.setTradeStatus(getStringFromJson(body, IWechatPayRemote.TRADE_STATE));
+        }
+        return wechatPayRes;
+    }
+
+    private OrderQueryModel convertOrderQueryModel(WechatPayReq wechatPayReq) {
+        OrderBean orderBean = wechatPayReq.getOrderBean();
+        OrderQueryModel model = OrderQueryModel.builder()
+                .appid(wxPayV3Bean.getAppId())
+                .mch_id(wxPayV3Bean.getMchId())
+                .transaction_id(orderBean.getTradeNo())
+                .build();
+        wechatPayReq.setRequestBody(toBodyJson(model));
+        return model;
+    }
+
+
+    private WechatPayRes convertPayNativeWechatPayRes(IJPayHttpResponse response) {
+        WechatPayRes wechatPayRes = convertBaseWechatPayRes(response);
+        if (wechatPayRes.getIsSuccess()) {
+            wechatPayRes.setCodeUrl(getStringFromJson(response.getBody(), CODE_URL));
+        }
+        return wechatPayRes;
+    }
+
+
+    private WechatPayRes failedWechatPayRes() {
+        WechatPayRes res = new WechatPayRes();
+        res.setIsSuccess(false);
+        res.setResMsg("WechatPayException");
+        return res;
     }
 
     private UnifiedOrderModel convertUnifiedOrderModel(WechatPayReq wechatPayReq) {

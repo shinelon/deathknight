@@ -8,6 +8,8 @@ import lombok.Data;
  */
 @Data
 public class TradeReqDTO {
+    protected String orderNo;
+    protected String tradeNo;
     /**
      * 请求体
      */

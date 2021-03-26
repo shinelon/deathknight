@@ -80,6 +80,7 @@ public class AlipayRefundRemoteImpl implements IAlipayRefundRemote {
     private AlipayRefundRes failedAlipayRefundRes() {
         AlipayRefundRes res = new AlipayRefundRes();
         res.setIsSuccess(false);
+        res.setResMsg("AlipayApiException");
         return res;
     }
 

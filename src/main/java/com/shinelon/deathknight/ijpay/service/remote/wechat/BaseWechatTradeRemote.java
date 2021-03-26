@@ -2,10 +2,13 @@ package com.shinelon.deathknight.ijpay.service.remote.wechat;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.ijpay.core.IJPayHttpResponse;
 import com.ijpay.core.kit.PayKit;
 import com.ijpay.core.kit.WxPayKit;
 import com.shinelon.deathknight.ijpay.config.WxPayV3Bean;
+import com.shinelon.deathknight.ijpay.enums.PayCodeEnum;
+import com.shinelon.deathknight.ijpay.exception.PayException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,14 +23,23 @@ public abstract class BaseWechatTradeRemote {
     /***
      * 获取证书序列号
      */
-    protected String serialNo;
+    private volatile static String serialNo;
     /**
      * 获取平台证书序列号
      */
-    protected String platSerialNo;
+    private volatile static String platSerialNo;
+
 
     @Autowired
     protected WxPayV3Bean wxPayV3Bean;
+
+    protected static void resetSerialNo() {
+        serialNo = null;
+    }
+
+    protected static void resetPlatSerialNo() {
+        platSerialNo = null;
+    }
 
     protected String getSerialNumber() {
         if (StrUtil.isEmpty(serialNo)) {
@@ -48,6 +60,13 @@ public abstract class BaseWechatTradeRemote {
         return platSerialNo;
     }
 
+
+    protected void assertVerifySignatureTrue(IJPayHttpResponse response) {
+        if (!verifySignature(response)) {
+            log.error("errorSignatureResponse:{}", JSONUtil.toJsonPrettyStr(response));
+            throw new PayException(PayCodeEnum.ILLEGAL_SIGNATURE);
+        }
+    }
 
     protected boolean verifySignature(IJPayHttpResponse response) {
         try {

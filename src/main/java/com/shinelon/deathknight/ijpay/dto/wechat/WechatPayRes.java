@@ -11,5 +11,12 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WechatPayRes extends TradeResDTO {
+    /**
+     * 二维码url
+     */
     private String codeUrl;
+    /**
+     * 完成时间
+     */
+    private String finishTime;
 }

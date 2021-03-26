@@ -75,6 +75,7 @@ public class AlipayPayRemoteImpl implements IAlipayPayRemote {
     private AlipayPayRes failedAlipayPayRes() {
         AlipayPayRes res = new AlipayPayRes();
         res.setIsSuccess(false);
+        res.setResMsg("AlipayApiException");
         return res;
     }
 

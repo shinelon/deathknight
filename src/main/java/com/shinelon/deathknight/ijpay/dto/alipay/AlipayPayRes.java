@@ -13,10 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class AlipayPayRes extends TradeResDTO {
-    /**
-     * 交易状态
-     */
-    private String tradeStatus;
+
 
     @Override
     public String toString() {

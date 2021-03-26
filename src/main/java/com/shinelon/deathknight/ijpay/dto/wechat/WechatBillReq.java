@@ -13,6 +13,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WechatBillReq extends TradeReqDTO {
+    private String billType;
+    private String billDate;
+    private String tarType;
 
     @Override
     public String toString() {

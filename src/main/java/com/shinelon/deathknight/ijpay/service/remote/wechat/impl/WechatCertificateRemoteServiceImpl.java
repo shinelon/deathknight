@@ -53,8 +53,10 @@ public class WechatCertificateRemoteServiceImpl extends BaseWechatTradeRemote im
 
             String body = response.getBody();
             int status = response.getStatus();
-
+            log.info("timestamp: {}", timestamp);
+            log.info("nonceStr: {}", nonceStr);
             log.info("serialNumber: {}", serialNumber);
+            log.info("signature: {}", signature);
             log.info("status: {}", status);
             log.info("body: {}", body);
             int isOk = 200;
@@ -118,7 +120,9 @@ public class WechatCertificateRemoteServiceImpl extends BaseWechatTradeRemote im
             FileWriter writer = new FileWriter(certPath);
             writer.write(publicKey);
             // 获取平台证书序列号
-            X509Certificate certificate = PayKit.getCertificate(new ByteArrayInputStream(publicKey.getBytes()));
+            X509Certificate certificate = PayKit.getCertificate(new ByteArrayInputStream(publicKey.getBytes(StandardCharsets.UTF_8)));
+            //重置平台platSerialNo
+            resetPlatSerialNo();
             return certificate.getSerialNumber().toString(16).toUpperCase();
         } catch (Exception e) {
             log.error(e.getMessage(), e);

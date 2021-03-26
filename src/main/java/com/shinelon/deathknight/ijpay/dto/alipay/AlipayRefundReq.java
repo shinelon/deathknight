@@ -15,10 +15,15 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class AlipayRefundReq extends TradeReqDTO {
-    private String orderNo;
-    private String tradeNo;
     private String refundNo;
+    /**
+     * 退款金额
+     */
     private BigDecimal refundAmount;
+    /**
+     * 订单金额
+     */
+    private BigDecimal totalAmount;
 
     @Override
     public String toString() {

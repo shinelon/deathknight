@@ -49,6 +49,7 @@ public class AlipayBillRemoteServiceImpl implements IAlipayBillRemoteService {
     private AlipayBillRes failedAlipayBillRes() {
         AlipayBillRes res = new AlipayBillRes();
         res.setIsSuccess(false);
+        res.setResMsg("AlipayApiException");
         return res;
     }
 }

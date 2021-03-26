@@ -13,6 +13,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WechatRefundRes extends TradeResDTO {
+    /***
+     * 退款号
+     */
+    private String refundNo;
+    /**
+     * 微信支付退款号
+     */
+    private String refundChannelNo;
 
     @Override
     public String toString() {
