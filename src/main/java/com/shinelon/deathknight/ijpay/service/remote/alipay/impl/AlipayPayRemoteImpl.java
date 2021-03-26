@@ -102,8 +102,7 @@ public class AlipayPayRemoteImpl implements IAlipayPayRemote {
         return model;
     }
 
-    @Override
-    public AlipayTradePagePayModel convertAlipayTradePagePayModel(AlipayPayReq alipayPayReq) {
+    private AlipayTradePagePayModel convertAlipayTradePagePayModel(AlipayPayReq alipayPayReq) {
         OrderBean orderBean = alipayPayReq.getOrderBean();
         AlipayTradePagePayModel model = new AlipayTradePagePayModel();
         model.setOutTradeNo(orderBean.getOrderNo());

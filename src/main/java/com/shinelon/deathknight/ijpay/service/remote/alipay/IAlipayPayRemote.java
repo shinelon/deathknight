@@ -1,6 +1,5 @@
 package com.shinelon.deathknight.ijpay.service.remote.alipay;
 
-import com.alipay.api.domain.AlipayTradePagePayModel;
 import com.shinelon.deathknight.ijpay.dto.remote.alipay.AlipayPayReq;
 import com.shinelon.deathknight.ijpay.dto.remote.alipay.AlipayPayRes;
 
@@ -21,14 +20,6 @@ public interface IAlipayPayRemote extends IAlipayTradeService {
       * @param response
       */
      void pcPay(AlipayPayReq alipayPayReq, HttpServletResponse response);
-
-     /**
-      * convertAlipayTradePagePayModel
-      *
-      * @param alipayPayReq
-      * @return
-      */
-     AlipayTradePagePayModel convertAlipayTradePagePayModel(AlipayPayReq alipayPayReq);
 
      /**
       * close

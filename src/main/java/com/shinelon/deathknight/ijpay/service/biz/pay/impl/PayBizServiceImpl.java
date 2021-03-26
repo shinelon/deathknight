@@ -52,7 +52,6 @@ public class PayBizServiceImpl extends BasePayService implements IPayBizService 
                 .build();
         alipayPayReq.setOrderBean(orderBean);
         //getBody
-        alipayPayRemote.convertAlipayTradePagePayModel(alipayPayReq);
         insertOrder();
         alipayPayRemote.pcPay(alipayPayReq, response);
 
