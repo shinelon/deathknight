@@ -9,6 +9,7 @@ import com.ijpay.core.kit.WxPayKit;
 import com.shinelon.deathknight.ijpay.config.WxPayV3Bean;
 import com.shinelon.deathknight.ijpay.enums.PayCodeEnum;
 import com.shinelon.deathknight.ijpay.exception.PayException;
+import com.shinelon.deathknight.ijpay.service.remote.log.wechat.WechatTradeLog;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,7 +20,7 @@ import java.security.cert.X509Certificate;
  * @date 2021-03-25 15:30
  */
 @Slf4j
-public abstract class BaseWechatTradeRemote {
+public abstract class BaseWechatTradeRemote extends WechatTradeLog {
     /***
      * 获取证书序列号
      */

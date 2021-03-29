@@ -11,6 +11,7 @@ import com.shinelon.deathknight.ijpay.bean.OrderBean;
 import com.shinelon.deathknight.ijpay.config.AliPayBean;
 import com.shinelon.deathknight.ijpay.dto.remote.alipay.AlipayPayReq;
 import com.shinelon.deathknight.ijpay.dto.remote.alipay.AlipayPayRes;
+import com.shinelon.deathknight.ijpay.service.remote.alipay.BaseAlipayTradeRemote;
 import com.shinelon.deathknight.ijpay.service.remote.alipay.IAlipayPayRemote;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +28,7 @@ import java.net.URLEncoder;
  */
 @Slf4j
 @Service
-public class AlipayPayRemoteImpl implements IAlipayPayRemote {
+public class AlipayPayRemoteImpl extends BaseAlipayTradeRemote implements IAlipayPayRemote {
 
     @Autowired
     private AliPayBean aliPayBean;
@@ -38,6 +39,7 @@ public class AlipayPayRemoteImpl implements IAlipayPayRemote {
             String returnUrl = aliPayBean.getDomain() + RETURN_URL;
             String notifyUrl = aliPayBean.getDomain() + NOTIFY_URL;
             AlipayTradePagePayModel model = convertAlipayTradePagePayModel(alipayPayReq);
+            super.saveLog(model);
             AliPayApi.tradePage(response, model, notifyUrl, returnUrl);
         } catch (Exception e) {
             log.error("pcPay.errorMsg:{}", e.getMessage());
@@ -48,9 +50,11 @@ public class AlipayPayRemoteImpl implements IAlipayPayRemote {
 
     @Override
     public AlipayPayRes close(AlipayPayReq alipayPayReq) {
-        AlipayTradeCloseModel model = new AlipayTradeCloseModel();
+        AlipayTradeCloseModel model = convertAlipayTradeCloseModel(alipayPayReq);
         try {
+            Long logId = super.saveLog(model);
             AlipayTradeCloseResponse alipayTradeCloseResponse = AliPayApi.tradeCloseToResponse(model);
+            super.updateLog(logId, alipayTradeCloseResponse);
             return convertAlipayPayRes(alipayTradeCloseResponse);
         } catch (AlipayApiException e) {
             log.error("close.errorMsg:{},errorCode:{}", e.getErrMsg(), e.getErrCode());
@@ -63,7 +67,9 @@ public class AlipayPayRemoteImpl implements IAlipayPayRemote {
     public AlipayPayRes query(AlipayPayReq alipayPayReq) {
         AlipayTradeQueryModel model = covertAlipayTradeQueryModel(alipayPayReq);
         try {
+            Long logId = super.saveLog(model);
             AlipayTradeQueryResponse alipayTradeQueryResponse = AliPayApi.tradeQueryToResponse(model);
+            super.updateLog(logId, alipayTradeQueryResponse);
             return convertAlipayPayRes(alipayTradeQueryResponse);
         } catch (AlipayApiException e) {
             log.error("query.errorMsg:{},errorCode:{}", e.getErrMsg(), e.getErrCode());
@@ -92,6 +98,13 @@ public class AlipayPayRemoteImpl implements IAlipayPayRemote {
         res.setIsSuccess(isSuccessCode(response.getCode()));
         res.setResponseBody(response.getBody());
         return res;
+    }
+
+    private AlipayTradeCloseModel convertAlipayTradeCloseModel(AlipayPayReq alipayPayReq) {
+        AlipayTradeCloseModel model = new AlipayTradeCloseModel();
+        model.setTradeNo(alipayPayReq.getTradeNo());
+        alipayPayReq.setRequestBody(toBodyJson(model));
+        return model;
     }
 
     private AlipayTradeQueryModel covertAlipayTradeQueryModel(AlipayPayReq alipayPayReq) {

@@ -1,17 +1,17 @@
 package com.shinelon.deathknight.ijpay.service.remote.log.alipay;
 
-import com.alipay.api.domain.AlipayTradeCloseModel;
-import com.alipay.api.domain.AlipayTradePagePayModel;
-import com.alipay.api.domain.AlipayTradeQueryModel;
+import com.alipay.api.domain.*;
 import com.alipay.api.response.AlipayTradeCloseResponse;
+import com.alipay.api.response.AlipayTradeFastpayRefundQueryResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
+import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.shinelon.deathknight.ijpay.service.remote.log.TradeLog;
 
 /**
  * @author Shinelon
  * @date 2021-03-26 17:46
  */
-public class AlipayPayLog extends TradeLog {
+public class AlipayTradeLog extends TradeLog {
 
     protected Long saveLog(AlipayTradePagePayModel model) {
         //        super.saveReqLog()
@@ -34,6 +34,26 @@ public class AlipayPayLog extends TradeLog {
     }
 
     protected void updateLog(Long id, AlipayTradeCloseResponse alipayTradeCloseResponse) {
+        //        super.updateLog();
+    }
+
+
+    protected Long saveLog(AlipayTradeRefundModel refundModel) {
+        //        super.saveReqLog()
+        return Long.valueOf(0);
+    }
+
+    protected void updateLog(Long id, AlipayTradeRefundResponse alipayTradeRefundResponse) {
+        //        super.updateLog();
+    }
+
+
+    protected Long saveLog(AlipayTradeFastpayRefundQueryModel refundQueryModel) {
+        //        super.saveReqLog()
+        return Long.valueOf(0);
+    }
+
+    protected void updateLog(Long id, AlipayTradeFastpayRefundQueryResponse refundQueryResponse) {
         //        super.updateLog();
     }
 }
