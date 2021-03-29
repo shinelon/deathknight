@@ -29,6 +29,13 @@ public interface IPayBizService extends ITradeBizService {
      */
     void alipayPc(PayReqDTO payReqDTO, HttpServletResponse response);
 
+    /**
+     * alipayQrCode
+     *
+     * @param payReqDTO
+     * @return
+     */
+    PayResDTO alipayQrCode(PayReqDTO payReqDTO);
 
     /**
      * wechatNative

@@ -1,10 +1,7 @@
 package com.shinelon.deathknight.ijpay.service.remote.log.alipay;
 
 import com.alipay.api.domain.*;
-import com.alipay.api.response.AlipayTradeCloseResponse;
-import com.alipay.api.response.AlipayTradeFastpayRefundQueryResponse;
-import com.alipay.api.response.AlipayTradeQueryResponse;
-import com.alipay.api.response.AlipayTradeRefundResponse;
+import com.alipay.api.response.*;
 import com.shinelon.deathknight.ijpay.service.remote.log.TradeLog;
 
 /**
@@ -13,9 +10,17 @@ import com.shinelon.deathknight.ijpay.service.remote.log.TradeLog;
  */
 public class AlipayTradeLog extends TradeLog {
 
-    protected Long saveLog(AlipayTradePagePayModel model) {
+    protected void saveLog(AlipayTradePagePayModel model) {
+        //        super.saveReqLog()
+    }
+
+    protected Long saveLog(AlipayTradePrecreateModel model) {
         //        super.saveReqLog()
         return Long.valueOf(0);
+    }
+
+    protected void updateLog(Long id, AlipayTradePrecreateResponse alipayTradeQueryResponse) {
+        //        super.updateLog();
     }
 
     protected Long saveLog(AlipayTradeQueryModel model) {

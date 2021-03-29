@@ -51,10 +51,27 @@ public class PayBizServiceImpl extends BasePayService implements IPayBizService 
                 .orderStatus(OrderStatusEnums.PAYING.toString())
                 .build();
         alipayPayReq.setOrderBean(orderBean);
-        //getBody
-        insertOrder();
+        insertOrder(orderBean);
         alipayPayRemote.pcPay(alipayPayReq, response);
 
+    }
+
+
+    @Override
+    public PayResDTO alipayQrCode(PayReqDTO payReqDTO) {
+        AlipayPayReq alipayPayReq = new AlipayPayReq();
+        OrderBean orderBean = OrderBean.builder()
+                .orderNo(nextSeqNo())
+                .goodsName(payReqDTO.getGoodsName())
+                .totalAmount(payReqDTO.getTotalAmount())
+                .orderStatus(OrderStatusEnums.PAYING.toString())
+                .build();
+        alipayPayReq.setOrderBean(orderBean);
+        //getBody
+        insertOrder(orderBean);
+        AlipayPayRes alipayPayRes = alipayPayRemote.qrPay(alipayPayReq);
+        String generateAsBase64 = getQrCodeBase64(alipayPayRes.getCodeUrl());
+        return PayResDTO.builder().qrCodeImg(generateAsBase64).build();
     }
 
     @Override
@@ -66,13 +83,16 @@ public class PayBizServiceImpl extends BasePayService implements IPayBizService 
                 .totalAmount(payReqDTO.getTotalAmount())
                 .build();
         wechatPayReq.setOrderBean(orderBean);
-        insertOrder();
+        insertOrder(orderBean);
         WechatPayRes wechatPayRes = wechatPayRemote.payNative(wechatPayReq);
-        updateOrder();
-        String codeUrl = wechatPayRes.getCodeUrl();
-        QrConfig qrConfig = QrConfig.create();
-        String generateAsBase64 = QrCodeUtil.generateAsBase64(codeUrl, qrConfig, ImgUtil.IMAGE_TYPE_JPEG);
+        updateOrder(orderBean);
+        String generateAsBase64 = getQrCodeBase64(wechatPayRes.getCodeUrl());
         return PayResDTO.builder().qrCodeImg(generateAsBase64).build();
+    }
+
+    private String getQrCodeBase64(String codeUrl) {
+        QrConfig qrConfig = QrConfig.create();
+        return QrCodeUtil.generateAsBase64(codeUrl, qrConfig, ImgUtil.IMAGE_TYPE_JPEG);
     }
 
 
@@ -115,11 +135,12 @@ public class PayBizServiceImpl extends BasePayService implements IPayBizService 
     }
 
 
-    private void insertOrder() {
+    private void insertOrder(OrderBean orderBean) {
         //首次请求后，加入到延迟队列
+        addQueue(orderBean);
     }
 
-    private void updateOrder() {
+    private void updateOrder(OrderBean orderBean) {
 
     }
 

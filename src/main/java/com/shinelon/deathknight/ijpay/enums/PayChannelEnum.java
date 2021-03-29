@@ -13,7 +13,6 @@ public enum PayChannelEnum {
      */
     ALIPAY("alipay",
             "支付宝支付",
-            "alipay-pay-service",
             "alipay-trade-close-queue",
             "alipay-trade-close-listener"),
     /***
@@ -21,23 +20,19 @@ public enum PayChannelEnum {
      */
     WECHAT("wechat",
             "微信支付",
-            "wechat-pay-service",
             "wechat-trade-close-queue",
             "wechat-trade-close-listener");
 
     private final String code;
     private final String msg;
-    private final String payServiceName;
     private final String tradeCloseQueueName;
     private final String tradeCloseListenerName;
 
     PayChannelEnum(String code, String msg,
-                   String payServiceName,
                    String tradeCloseQueueName,
                    String tradeCloseListenerName) {
         this.code = code;
         this.msg = msg;
-        this.payServiceName = payServiceName;
         this.tradeCloseQueueName = tradeCloseQueueName;
         this.tradeCloseListenerName = tradeCloseListenerName;
     }
@@ -57,14 +52,6 @@ public enum PayChannelEnum {
         throw new PayException(PayCodeEnum.ILLEGAL_PAY_CHANNEL_CODE);
     }
 
-    /***
-     * getBeanName
-     * @param code
-     * @return
-     */
-    public static String getPayServiceName(String code) {
-        return getEnumByCode(code).getPayServiceName();
-    }
 
     /***
      * tradeCloseQueueName

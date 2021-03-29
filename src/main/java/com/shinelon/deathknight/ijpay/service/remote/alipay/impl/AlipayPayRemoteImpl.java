@@ -3,8 +3,10 @@ package com.shinelon.deathknight.ijpay.service.remote.alipay.impl;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.domain.AlipayTradeCloseModel;
 import com.alipay.api.domain.AlipayTradePagePayModel;
+import com.alipay.api.domain.AlipayTradePrecreateModel;
 import com.alipay.api.domain.AlipayTradeQueryModel;
 import com.alipay.api.response.AlipayTradeCloseResponse;
+import com.alipay.api.response.AlipayTradePrecreateResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.ijpay.alipay.AliPayApi;
 import com.shinelon.deathknight.ijpay.bean.OrderBean;
@@ -49,6 +51,22 @@ public class AlipayPayRemoteImpl extends BaseAlipayTradeRemote implements IAlipa
     }
 
     @Override
+    public AlipayPayRes qrPay(AlipayPayReq alipayPayReq) {
+        try {
+            String notifyUrl = aliPayBean.getDomain() + NOTIFY_URL;
+            AlipayTradePrecreateModel model = convertAlipayTradePrecreateModel(alipayPayReq);
+            Long logId = super.saveLog(model);
+            AlipayTradePrecreateResponse alipayTradePrecreateResponse = AliPayApi.tradePrecreatePayToResponse(model, notifyUrl);
+            super.updateLog(logId, alipayTradePrecreateResponse);
+            return convertAlipayPayRes(alipayTradePrecreateResponse);
+        } catch (AlipayApiException e) {
+            log.error("qrPay.errorMsg:{}", e.getMessage());
+            log.error(e.getMessage(), e);
+        }
+        return failedAlipayPayRes();
+    }
+
+    @Override
     public AlipayPayRes close(AlipayPayReq alipayPayReq) {
         AlipayTradeCloseModel model = convertAlipayTradeCloseModel(alipayPayReq);
         try {
@@ -85,6 +103,14 @@ public class AlipayPayRemoteImpl extends BaseAlipayTradeRemote implements IAlipa
         return res;
     }
 
+    private AlipayPayRes convertAlipayPayRes(AlipayTradePrecreateResponse response) {
+        AlipayPayRes res = new AlipayPayRes();
+        res.setIsSuccess(isSuccessCode(response.getCode()));
+        res.setResponseBody(response.getBody());
+        res.setCodeUrl(response.getQrCode());
+        return res;
+    }
+
     private AlipayPayRes convertAlipayPayRes(AlipayTradeCloseResponse response) {
         AlipayPayRes res = new AlipayPayRes();
         res.setIsSuccess(isSuccessCode(response.getCode()));
@@ -115,6 +141,23 @@ public class AlipayPayRemoteImpl extends BaseAlipayTradeRemote implements IAlipa
         return model;
     }
 
+    private AlipayTradePrecreateModel convertAlipayTradePrecreateModel(AlipayPayReq alipayPayReq) {
+        OrderBean orderBean = alipayPayReq.getOrderBean();
+        AlipayTradePrecreateModel model = new AlipayTradePrecreateModel();
+        model.setOutTradeNo(orderBean.getOrderNo());
+        model.setTotalAmount(orderBean.getTotalAmount().toPlainString());
+        model.setSubject(orderBean.getGoodsName());
+        model.setBody(orderBean.getGoodsDescription());
+        if (!StringUtils.isBlank(orderBean.getPassbackParams())) {
+            //本参数必须进行UrlEncode
+            String encode = urlEncode(orderBean.getPassbackParams());
+            model.setPassbackParams(encode);
+        }
+        model.setTimeoutExpress("30m");
+        alipayPayReq.setRequestBody(toBodyJson(model));
+        return model;
+    }
+
     private AlipayTradePagePayModel convertAlipayTradePagePayModel(AlipayPayReq alipayPayReq) {
         OrderBean orderBean = alipayPayReq.getOrderBean();
         AlipayTradePagePayModel model = new AlipayTradePagePayModel();
@@ -130,7 +173,6 @@ public class AlipayPayRemoteImpl extends BaseAlipayTradeRemote implements IAlipa
         }
         model.setGoodsType("0");
         model.setTimeoutExpress("30m");
-        model.setEnablePayChannels("balance,bankPay,debitCardExpress");
         alipayPayReq.setRequestBody(toBodyJson(model));
         return model;
     }

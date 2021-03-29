@@ -4,6 +4,7 @@ import cn.hutool.core.util.IdUtil;
 import com.shinelon.deathknight.ijpay.enums.PayCodeEnum;
 import com.shinelon.deathknight.ijpay.exception.PayException;
 import com.shinelon.deathknight.ijpay.handler.PaySeqNoHandler;
+import com.shinelon.deathknight.ijpay.handler.queue.TradeCloseDelayedQueue;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -13,7 +14,7 @@ import java.time.Duration;
 /***
  * @author Shinelon
  */
-public class BasePayService {
+public class BasePayService extends TradeCloseDelayedQueue {
     private static final String PAY_TOKEN_KEY_PREFIX = "trade:token:alipay:";
     private static final long DEFAULT_TIMEOUT = 5 * 60L;
     @Autowired

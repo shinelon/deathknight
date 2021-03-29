@@ -23,6 +23,14 @@ public interface IAlipayPayRemote extends IAlipayTradeService {
      void pcPay(AlipayPayReq alipayPayReq, HttpServletResponse response);
 
      /**
+      * qrPay
+      *
+      * @param alipayPayReq
+      * @return
+      */
+     AlipayPayRes qrPay(AlipayPayReq alipayPayReq);
+
+     /**
       * close
       *
       * @param alipayPayReq
