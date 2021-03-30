@@ -13,6 +13,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WechatPayRes extends TradeResDTO {
+    /***
+     * 订单号
+     */
+    private String orderNo;
     /**
      * 二维码url
      */

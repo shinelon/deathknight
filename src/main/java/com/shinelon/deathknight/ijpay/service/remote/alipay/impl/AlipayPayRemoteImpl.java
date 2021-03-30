@@ -108,6 +108,7 @@ public class AlipayPayRemoteImpl extends BaseAlipayTradeRemote implements IAlipa
         res.setIsSuccess(isSuccessCode(response.getCode()));
         res.setResponseBody(response.getBody());
         res.setCodeUrl(response.getQrCode());
+        res.setOrderNo(response.getOutTradeNo());
         return res;
     }
 

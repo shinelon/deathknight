@@ -97,18 +97,18 @@ public class PayBizServiceImpl extends BasePayService implements IPayBizService 
 
 
     @Override
-    public PayResDTO query(String payChannel, String tradeNo) {
+    public PayResDTO query(String payChannel, String orderNo) {
         PayResDTO res = PayResDTO.builder().build();
         if (PayChannelEnum.ALIPAY.getCode().equals(payChannel)) {
             AlipayPayReq alipayPayReq = new AlipayPayReq();
-            alipayPayReq.setTradeNo(tradeNo);
+            alipayPayReq.setOrderNo(orderNo);
             AlipayPayRes queryRes = alipayPayRemote.query(alipayPayReq);
             //转换
             return res;
         }
         if (PayChannelEnum.WECHAT.getCode().equals(payChannel)) {
             WechatPayReq wechatPayReq = new WechatPayReq();
-            wechatPayReq.setTradeNo(tradeNo);
+            wechatPayReq.setOrderNo(orderNo);
             WechatPayRes queryRes = wechatPayRemote.query(wechatPayReq);
             //转换
             return res;
@@ -117,17 +117,17 @@ public class PayBizServiceImpl extends BasePayService implements IPayBizService 
     }
 
     @Override
-    public void close(String payChannel, String tradeNo) {
+    public void close(String payChannel, String orderNo) {
         PayResDTO res = PayResDTO.builder().build();
         if (PayChannelEnum.ALIPAY.getCode().equals(payChannel)) {
             AlipayPayReq alipayPayReq = new AlipayPayReq();
-            alipayPayReq.setTradeNo(tradeNo);
+            alipayPayReq.setOrderNo(orderNo);
             AlipayPayRes queryRes = alipayPayRemote.close(alipayPayReq);
             //转换
         }
         if (PayChannelEnum.WECHAT.getCode().equals(payChannel)) {
             WechatPayReq wechatPayReq = new WechatPayReq();
-            wechatPayReq.setTradeNo(tradeNo);
+            wechatPayReq.setOrderNo(orderNo);
             WechatPayRes queryRes = wechatPayRemote.close(wechatPayReq);
             //转换
         }

@@ -15,6 +15,8 @@ public class PayResDTO {
 
     private String token;
     private String orderStatus;
+    private String tradeNo;
+    private String orderNo;
     private String qrCodeImg;
 
     @Override

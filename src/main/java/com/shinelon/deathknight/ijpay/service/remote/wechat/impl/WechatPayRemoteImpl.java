@@ -45,7 +45,9 @@ public class WechatPayRemoteImpl extends BaseWechatTradeRemote implements IWecha
                     JSONUtil.toJsonStr(orderModel)
             );
             assertVerifySignatureTrue(response);
-            return convertPayNativeWechatPayRes(response);
+            WechatPayRes wechatPayRes = convertPayNativeWechatPayRes(response);
+            wechatPayRes.setOrderNo(wechatPayReq.getOrderNo());
+            return wechatPayRes;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }

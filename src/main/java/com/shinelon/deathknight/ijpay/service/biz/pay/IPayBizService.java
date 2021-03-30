@@ -49,18 +49,18 @@ public interface IPayBizService extends ITradeBizService {
      * query
      *
      * @param payChannel
-     * @param tradeNo
+     * @param orderNo
      * @return
      */
-    PayResDTO query(String payChannel, String tradeNo);
+    PayResDTO query(String payChannel, String orderNo);
 
     /**
      * close
      *
      * @param payChannel
-     * @param tradeNo
+     * @param orderNo
      */
-    void close(String payChannel, String tradeNo);
+    void close(String payChannel, String orderNo);
 
 
 }

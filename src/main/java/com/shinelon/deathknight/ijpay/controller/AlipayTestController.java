@@ -28,7 +28,7 @@ import java.io.PrintWriter;
 @Controller
 @RequestMapping("/alipay")
 @Slf4j
-public class AlipayController {
+public class AlipayTestController {
     private final static String NOTIFY_URL = "/aliPay/notify_url";
     private final static String RETURN_URL = "/aliPay/return_url";
     @Autowired

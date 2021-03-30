@@ -13,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class AlipayPayRes extends TradeResDTO {
+    private String orderNo;
     private String codeUrl;
     @Override
     public String toString() {
