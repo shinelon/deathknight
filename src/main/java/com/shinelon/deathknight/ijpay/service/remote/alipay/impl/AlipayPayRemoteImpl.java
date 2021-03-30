@@ -1,6 +1,5 @@
 package com.shinelon.deathknight.ijpay.service.remote.alipay.impl;
 
-import com.alipay.api.AlipayApiException;
 import com.alipay.api.domain.AlipayTradeCloseModel;
 import com.alipay.api.domain.AlipayTradePagePayModel;
 import com.alipay.api.domain.AlipayTradePrecreateModel;
@@ -52,48 +51,24 @@ public class AlipayPayRemoteImpl extends BaseAlipayTradeRemote implements IAlipa
 
     @Override
     public AlipayPayRes qrPay(AlipayPayReq alipayPayReq) {
-        try {
-            String notifyUrl = aliPayBean.getDomain() + NOTIFY_URL;
-            AlipayTradePrecreateModel model = convertAlipayTradePrecreateModel(alipayPayReq);
-            Long logId = super.saveLog(model);
-            AlipayTradePrecreateResponse alipayTradePrecreateResponse = AliPayApi.tradePrecreatePayToResponse(model, notifyUrl);
-            super.updateLog(logId, alipayTradePrecreateResponse);
-            return convertAlipayPayRes(alipayTradePrecreateResponse);
-        } catch (AlipayApiException e) {
-            log.error("qrPay.errorMsg:{}", e.getMessage());
-            log.error(e.getMessage(), e);
-        }
-        return failedAlipayPayRes();
+        String notifyUrl = aliPayBean.getDomain() + NOTIFY_URL;
+        AlipayTradePrecreateModel model = convertAlipayTradePrecreateModel(alipayPayReq);
+        AlipayTradePrecreateResponse alipayTradePrecreateResponse = super.call(model, (t) -> AliPayApi.tradePrecreatePayToResponse(t, notifyUrl));
+        return convertAlipayPayRes(alipayTradePrecreateResponse);
     }
 
     @Override
     public AlipayPayRes close(AlipayPayReq alipayPayReq) {
         AlipayTradeCloseModel model = convertAlipayTradeCloseModel(alipayPayReq);
-        try {
-            Long logId = super.saveLog(model);
-            AlipayTradeCloseResponse alipayTradeCloseResponse = AliPayApi.tradeCloseToResponse(model);
-            super.updateLog(logId, alipayTradeCloseResponse);
-            return convertAlipayPayRes(alipayTradeCloseResponse);
-        } catch (AlipayApiException e) {
-            log.error("close.errorMsg:{},errorCode:{}", e.getErrMsg(), e.getErrCode());
-            log.error(e.getMessage(), e);
-        }
-        return failedAlipayPayRes();
+        AlipayTradeCloseResponse alipayTradeCloseResponse = super.call(model, (t) -> AliPayApi.tradeCloseToResponse(model));
+        return convertAlipayPayRes(alipayTradeCloseResponse);
     }
 
     @Override
     public AlipayPayRes query(AlipayPayReq alipayPayReq) {
         AlipayTradeQueryModel model = covertAlipayTradeQueryModel(alipayPayReq);
-        try {
-            Long logId = super.saveLog(model);
-            AlipayTradeQueryResponse alipayTradeQueryResponse = AliPayApi.tradeQueryToResponse(model);
-            super.updateLog(logId, alipayTradeQueryResponse);
-            return convertAlipayPayRes(alipayTradeQueryResponse);
-        } catch (AlipayApiException e) {
-            log.error("query.errorMsg:{},errorCode:{}", e.getErrMsg(), e.getErrCode());
-            log.error(e.getMessage(), e);
-        }
-        return failedAlipayPayRes();
+        AlipayTradeQueryResponse alipayTradeQueryResponse = super.call(model, (t) -> AliPayApi.tradeQueryToResponse(model));
+        return convertAlipayPayRes(alipayTradeQueryResponse);
     }
 
     private AlipayPayRes failedAlipayPayRes() {

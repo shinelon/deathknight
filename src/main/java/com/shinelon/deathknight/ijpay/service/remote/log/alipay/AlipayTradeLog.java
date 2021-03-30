@@ -1,5 +1,9 @@
 package com.shinelon.deathknight.ijpay.service.remote.log.alipay;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alipay.api.AlipayObject;
+import com.alipay.api.AlipayResponse;
 import com.alipay.api.domain.*;
 import com.alipay.api.response.*;
 import com.shinelon.deathknight.ijpay.service.remote.log.TradeLog;
@@ -9,6 +13,20 @@ import com.shinelon.deathknight.ijpay.service.remote.log.TradeLog;
  * @date 2021-03-26 17:46
  */
 public class AlipayTradeLog extends TradeLog {
+
+    public <R extends AlipayResponse, T extends AlipayObject>
+    void saveLog(T t, R r) {
+        String requestJson = JSON.toJSONString(t);
+        JSONObject requestObj = JSON.parseObject(requestJson);
+        String tradeNo = requestObj.getString("trade_no");
+        String resopnseJson = JSON.toJSONString(r);
+    }
+
+    public <T extends AlipayObject> void saveLog(T t, String r) {
+        String requestJson = JSON.toJSONString(t);
+        JSONObject requestObj = JSON.parseObject(requestJson);
+        String tradeNo = requestObj.getString("trade_no");
+    }
 
     protected void saveLog(AlipayTradePagePayModel model) {
         //        super.saveReqLog()
@@ -30,6 +48,14 @@ public class AlipayTradeLog extends TradeLog {
 
     protected void updateLog(Long id, AlipayTradeQueryResponse alipayTradeQueryResponse) {
         //        super.updateLog();
+    }
+
+    protected void saveLog(AlipayTradeQueryModel model, AlipayTradeQueryResponse alipayTradeQueryResponse) {
+        //        super.updateLog();
+        //支付中不保存
+        if ("WAIT_BUYER_PAY".equals(alipayTradeQueryResponse.getTradeStatus())) {
+            return;
+        }
     }
 
 

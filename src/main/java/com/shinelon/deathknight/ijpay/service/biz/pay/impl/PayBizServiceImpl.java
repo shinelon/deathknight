@@ -43,6 +43,7 @@ public class PayBizServiceImpl extends BasePayService implements IPayBizService 
 
     @Override
     public void alipayPc(PayReqDTO payReqDTO, HttpServletResponse response) {
+        checkToken(payReqDTO.getUserId(), payReqDTO.getToken());
         AlipayPayReq alipayPayReq = new AlipayPayReq();
         OrderBean orderBean = OrderBean.builder()
                 .orderNo(nextSeqNo())
@@ -59,6 +60,7 @@ public class PayBizServiceImpl extends BasePayService implements IPayBizService 
 
     @Override
     public PayResDTO alipayQrCode(PayReqDTO payReqDTO) {
+        checkToken(payReqDTO.getUserId(), payReqDTO.getToken());
         AlipayPayReq alipayPayReq = new AlipayPayReq();
         OrderBean orderBean = OrderBean.builder()
                 .orderNo(nextSeqNo())
@@ -76,6 +78,7 @@ public class PayBizServiceImpl extends BasePayService implements IPayBizService 
 
     @Override
     public PayResDTO wechatNative(PayReqDTO payReqDTO) {
+        checkToken(payReqDTO.getUserId(), payReqDTO.getToken());
         WechatPayReq wechatPayReq = new WechatPayReq();
         OrderBean orderBean = OrderBean.builder()
                 .orderNo(nextSeqNo())

@@ -4,8 +4,11 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.ijpay.core.IJPayHttpResponse;
+import com.ijpay.core.enums.RequestMethod;
 import com.ijpay.core.kit.PayKit;
 import com.ijpay.core.kit.WxPayKit;
+import com.ijpay.wxpay.WxPayApi;
+import com.ijpay.wxpay.enums.WxDomain;
 import com.shinelon.deathknight.ijpay.config.WxPayV3Bean;
 import com.shinelon.deathknight.ijpay.enums.PayCodeEnum;
 import com.shinelon.deathknight.ijpay.exception.PayException;
@@ -40,6 +43,32 @@ public abstract class BaseWechatTradeRemote extends WechatTradeLog {
 
     protected static void resetPlatSerialNo() {
         platSerialNo = null;
+    }
+
+
+    protected WechatCallFunction<String, String, IJPayHttpResponse> basePostCall = (String url, String json) -> {
+        return WxPayApi.v3(
+                RequestMethod.POST,
+                WxDomain.CHINA.toString(),
+                url,
+                wxPayV3Bean.getMchId(),
+                getSerialNumber(),
+                null,
+                wxPayV3Bean.getKeyPath(),
+                json
+        );
+    };
+
+    protected IJPayHttpResponse call(String url, String jsonStr
+            , WechatCallFunction<String, String, IJPayHttpResponse> function) {
+        try {
+            IJPayHttpResponse res = function.apply(url, jsonStr);
+            assertVerifySignatureTrue(res);
+            //savelog
+            return res;
+        } catch (Exception e) {
+            throw new PayException(e.getMessage());
+        }
     }
 
     protected String getSerialNumber() {

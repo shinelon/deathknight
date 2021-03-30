@@ -4,6 +4,8 @@ import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 public class SeqTest {
     /***
      * 找出字符串中最长连续字符串
@@ -43,6 +45,19 @@ public class SeqTest {
             System.out.println(snowflake.nextId());
             System.out.println(snowflake.nextIdStr());
         }
+    }
+
+    @Test
+    public void bigDecimalDemo() {
+        BigDecimal b1 = new BigDecimal("50000.000");
+        System.out.println(b1.toPlainString());
+        System.out.println(b1.toEngineeringString());
+        System.out.println(b1.toString());
+
+        BigDecimal b2 = new BigDecimal(9999L);
+        System.out.println(b2.toPlainString());
+        System.out.println(b2.toEngineeringString());
+        System.out.println(b2.toString());
     }
 
 }

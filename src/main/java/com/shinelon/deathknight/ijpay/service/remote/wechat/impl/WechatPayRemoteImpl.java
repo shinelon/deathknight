@@ -2,11 +2,8 @@ package com.shinelon.deathknight.ijpay.service.remote.wechat.impl;
 
 import cn.hutool.json.JSONUtil;
 import com.ijpay.core.IJPayHttpResponse;
-import com.ijpay.core.enums.RequestMethod;
 import com.ijpay.core.utils.DateTimeZoneUtil;
-import com.ijpay.wxpay.WxPayApi;
 import com.ijpay.wxpay.enums.WxApiType;
-import com.ijpay.wxpay.enums.WxDomain;
 import com.ijpay.wxpay.model.CloseOrderModel;
 import com.ijpay.wxpay.model.OrderQueryModel;
 import com.ijpay.wxpay.model.v3.Amount;
@@ -33,69 +30,24 @@ public class WechatPayRemoteImpl extends BaseWechatTradeRemote implements IWecha
     @Override
     public WechatPayRes payNative(WechatPayReq wechatPayReq) {
         UnifiedOrderModel orderModel = convertUnifiedOrderModel(wechatPayReq);
-        try {
-            IJPayHttpResponse response = WxPayApi.v3(
-                    RequestMethod.POST,
-                    WxDomain.CHINA.toString(),
-                    WxApiType.NATIVE_PAY.toString(),
-                    wxPayV3Bean.getMchId(),
-                    getSerialNumber(),
-                    null,
-                    wxPayV3Bean.getKeyPath(),
-                    JSONUtil.toJsonStr(orderModel)
-            );
-            assertVerifySignatureTrue(response);
-            WechatPayRes wechatPayRes = convertPayNativeWechatPayRes(response);
-            wechatPayRes.setOrderNo(wechatPayReq.getOrderNo());
-            return wechatPayRes;
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        return failedWechatPayRes();
+        IJPayHttpResponse response = super.call(WxApiType.NATIVE_PAY.toString(), JSONUtil.toJsonStr(orderModel), basePostCall);
+        WechatPayRes wechatPayRes = convertPayNativeWechatPayRes(response);
+        wechatPayRes.setOrderNo(wechatPayReq.getOrderNo());
+        return wechatPayRes;
     }
 
     @Override
     public WechatPayRes query(WechatPayReq wechatPayReq) {
         OrderQueryModel queryModel = convertOrderQueryModel(wechatPayReq);
-        try {
-            IJPayHttpResponse response = WxPayApi.v3(
-                    RequestMethod.POST,
-                    WxDomain.CHINA.toString(),
-                    WxApiType.ORDER_QUERY.toString(),
-                    wxPayV3Bean.getMchId(),
-                    getSerialNumber(),
-                    null,
-                    wxPayV3Bean.getKeyPath(),
-                    JSONUtil.toJsonStr(queryModel)
-            );
-            assertVerifySignatureTrue(response);
-            return convertOrderQueryWechatPayRes(response);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        return failedWechatPayRes();
+        IJPayHttpResponse response = super.call(WxApiType.ORDER_QUERY.toString(), JSONUtil.toJsonStr(queryModel), basePostCall);
+        return convertOrderQueryWechatPayRes(response);
     }
 
     @Override
     public WechatPayRes close(WechatPayReq wechatPayReq) {
         CloseOrderModel closeOrderModel = convertCloseOrderModel(wechatPayReq);
-        try {
-            IJPayHttpResponse response = WxPayApi.v3(
-                    RequestMethod.POST,
-                    WxDomain.CHINA.toString(),
-                    WxApiType.CLOSE_ORDER.toString(),
-                    wxPayV3Bean.getMchId(),
-                    getSerialNumber(),
-                    null,
-                    wxPayV3Bean.getKeyPath(),
-                    JSONUtil.toJsonStr(closeOrderModel)
-            );
-            assertVerifySignatureTrue(response);
-            return convertBaseWechatPayRes(response);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        return failedWechatPayRes();
+        IJPayHttpResponse response = super.call(WxApiType.CLOSE_ORDER.toString(), JSONUtil.toJsonStr(closeOrderModel), basePostCall);
+        return convertBaseWechatPayRes(response);
     }
 
 
