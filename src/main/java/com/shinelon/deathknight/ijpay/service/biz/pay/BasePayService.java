@@ -44,7 +44,10 @@ public class BasePayService extends TradeCloseDelayedQueue {
         if (!token.equals(value)) {
             throw new PayException(PayCodeEnum.ILLEGAL_PAY_TOKEN);
         }
-        redisTemplate.delete(payTokenKey);
+        Boolean delete = redisTemplate.delete(payTokenKey);
+        if (!Boolean.TRUE.equals(delete)) {
+            throw new PayException(PayCodeEnum.ILLEGAL_PAY_TOKEN);
+        }
     }
 
     public String tokenKey(String userId) {
