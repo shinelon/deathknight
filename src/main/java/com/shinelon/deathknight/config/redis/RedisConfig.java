@@ -29,7 +29,7 @@ public class RedisConfig {
         RedisProperties redisProperties = new RedisProperties();
         redisProperties.setHost(host);
         redisProperties.setPort(Integer.parseInt(port));
-        redisProperties.setPassword(password);
+//        redisProperties.setPassword(password);
         redisProperties.setTimeout(Duration.ofSeconds(10));
         RedisProperties.Pool pool = new RedisProperties.Pool();
         pool.setMaxActive(16);

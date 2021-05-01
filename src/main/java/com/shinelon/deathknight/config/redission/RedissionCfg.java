@@ -10,6 +10,7 @@ import org.redisson.api.executor.TaskSuccessListener;
 import org.redisson.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +38,7 @@ public class RedissionCfg {
         Config config = new Config();
         config.useSingleServer()
                 .setAddress("redis://" + host + ":" + port)
-                .setPassword(password)
+//                .setPassword(password)
                 .setDatabase(1)
                 .setConnectionPoolSize(16)
                 .setConnectionMinimumIdleSize(4)
@@ -49,8 +50,8 @@ public class RedissionCfg {
 
 
     @Bean(destroyMethod = "")
-    public RScheduledExecutorService rScheduledExecutorService(RedissonClient redissonClient) {
-        WorkerOptions workerOptions = WorkerOptions.defaults().workers(6).addListener(new TaskSuccessListener() {
+    public RScheduledExecutorService rScheduledExecutorService(RedissonClient redissonClient, BeanFactory beanFactory) {
+        WorkerOptions workerOptions = WorkerOptions.defaults().beanFactory(beanFactory).workers(6).addListener(new TaskSuccessListener() {
             @Override
             public <T> void onSucceeded(String taskId, T result) {
                 logger.info("taskId:{} is success resutl:{}", taskId, result);
