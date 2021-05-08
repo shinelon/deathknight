@@ -69,7 +69,6 @@ public class PayBizServiceImpl extends BasePayService implements IPayBizService 
                 .orderStatus(OrderStatusEnums.PAYING.toString())
                 .build();
         alipayPayReq.setOrderBean(orderBean);
-        //getBody
         insertOrder(orderBean);
         AlipayPayRes alipayPayRes = alipayPayRemote.qrPay(alipayPayReq);
         String generateAsBase64 = getQrCodeBase64(alipayPayRes.getCodeUrl());
@@ -140,7 +139,6 @@ public class PayBizServiceImpl extends BasePayService implements IPayBizService 
 
     private void insertOrder(OrderBean orderBean) {
         //首次请求后，加入到延迟队列
-        addQueue(orderBean);
     }
 
     private void updateOrder(OrderBean orderBean) {
