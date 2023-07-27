@@ -24,7 +24,22 @@
 	</properties>
 
 	<dependencies>
-
+		<dependency>
+			<groupId>com.influxdb</groupId>
+			<artifactId>influxdb-client-java</artifactId>
+			<version>6.9.0</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>okhttp</artifactId>
+					<groupId>com.squareup.okhttp3</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<artifactId>okhttp</artifactId>
+			<groupId>com.squareup.okhttp3</groupId>
+			<version>4.10.0</version>
+		</dependency>
 		<dependency>
 			<groupId>cn.hutool</groupId>
 			<artifactId>hutool-extra</artifactId>
